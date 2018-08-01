@@ -49,6 +49,8 @@ import static java.lang.Math.min;
 import static org.elasticsearch.rest.RestRequest.Method.GET;
 import static org.elasticsearch.rest.RestRequest.Method.POST;
 
+import org.elasticsearch.common.xcontent.DeprecationHandler;
+
 public class AknnRestAction extends BaseRestHandler {
 
     public static String NAME = "_aknn";
@@ -199,7 +201,10 @@ public class AknnRestAction extends BaseRestHandler {
         stopWatch.start("Parse request");
 
         XContentParser xContentParser = XContentHelper.createParser(
-                restRequest.getXContentRegistry(), restRequest.content(), restRequest.getXContentType());
+                restRequest.getXContentRegistry(),
+                DeprecationHandler.THROW_UNSUPPORTED_OPERATION,
+                restRequest.content(),
+                restRequest.getXContentType());
         Map<String, Object> contentMap = xContentParser.mapOrdered();
         @SuppressWarnings("unchecked")
         Map<String, Object> sourceMap = (Map<String, Object>) contentMap.get("_source");
@@ -251,7 +256,10 @@ public class AknnRestAction extends BaseRestHandler {
         logger.info("Parse request parameters");
         stopWatch.start("Parse request parameters");
         XContentParser xContentParser = XContentHelper.createParser(
-                restRequest.getXContentRegistry(), restRequest.content(), restRequest.getXContentType());
+                restRequest.getXContentRegistry(),
+                DeprecationHandler.THROW_UNSUPPORTED_OPERATION,
+                restRequest.content(),
+                restRequest.getXContentType());
         Map<String, Object> contentMap = xContentParser.mapOrdered();
         final String index = (String) contentMap.get("_index");
         final String type = (String) contentMap.get("_type");
