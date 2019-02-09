@@ -3,15 +3,14 @@ FROM docker.elastic.co/elasticsearch/elasticsearch:6.3.2
 ADD . /aknn
 WORKDIR /aknn
 
-
-# Install Java 10
+RUN yum install -y chkconfig
+# Install Java 11
 # Before building this image, download the .rpm files to elasticsearch-aknn directory
 #     from http://www.oracle.com/technetwork/java/javase/downloads/index.html
-
-RUN yum -y install jdk-10.0.2_linux-x64_bin.rpm
-RUN yum -y install jre-10.0.2_linux-x64_bin.rpm
-ENV JAVA_HOME=/usr/java/jdk-10.0.2/
-
+RUN wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie"   "http://download.oracle.com/otn-pub/java/jdk/11.0.2+9/f51449fcd52f4d52b93a989c5c56ed3c/jdk-11.0.2_linux-x64_bin.rpm"
+RUN yum -y install jdk-11.0.2_linux-x64_bin.rpm
+RUN alternatives --set java /usr/java/jdk-11.0.2/bin/java
+ENV JAVA_HOME=/usr/java/jdk-11.0.2/
 
 # Install gradle 4.9
 

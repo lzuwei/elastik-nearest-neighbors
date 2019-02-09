@@ -53,3 +53,5 @@ checkstyleMain.enabled = true
 checkstyleTest.enabled = true
 dependencyLicenses.enabled = false
 thirdPartyAudit.enabled = false
+forbiddenApisTest.enabled = false
+forbiddenApisMain.enabled = false
